@@ -1,0 +1,36 @@
+{
+  "name": "knockout-starter",
+  "version": "1.0.0",
+  "description": "knockout-starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:js; npm run build:html",
+    "build:js": "browserify --entry src/main.js --outfile www/index.js",
+    "build:html": "cp src/main.html www/index.html",
+    "clean": "rm -rf www/*",
+    "dev": "npm run watch & npm start & livereload www",
+    "kill": "killall -9 node",
+    "watch:js": "watchify --entry src/main.js --outfile www/index.js",
+    "watch:html": "watchy --watch src/main.html -- npm run build:html",
+    "watch": "npm run watch:js & npm run watch:html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessehattabaugh/knockout-starter.git"
+  },
+  "author": "Jesse Hattabaugh",
+  "license": "The Artistic License 2.0",
+  "bugs": {
+    "url": "https://github.com/jessehattabaugh/knockout-starter/issues"
+  },
+  "homepage": "https://github.com/jessehattabaugh/knockout-starter",
+  "dependencies": {
+    "browserify": "^6.3.2",
+    "knockout": "^3.2.0",
+    "livereload": "^0.3.4",
+    "node-static": "^0.7.6",
+    "watchify": "^2.1.1",
+    "watchy": "^0.5.6"
+  }
+}
