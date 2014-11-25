@@ -1,18 +1,15 @@
 var ko = require('knockout');
 
-ko.components.register('panel', {
-    viewModel: require('./panelViewModel'),
-    template: require('fs').readFileSync('src/panelView.html', 'utf8')
-});
+// Register Components
+ko.components.register('panel', require('./panel'));
+//ko.components.register('back-button', require('./back-button'));
+ko.components.register('back-button', {
+  template: require('fs').readFileSync('src/back-button.html', 'utf8')
+})
 
-var app = {
-  title: "Hello Knockout",
-  env: process.env.NODE_ENV || 'development',
-  initialized: ko.observable(false)
-};
-
+// Initialize App
+var App = require('./app');
+var app = new App();
 ko.applyBindings(app);
-
-console.log('Knockout is running');
-
 app.initialized(true);
+console.log('Knockout is running');

@@ -5387,32 +5387,53 @@ ko.exportSymbol('nativeTemplateEngine', ko.nativeTemplateEngine);
 }());
 })();
 
-},{}],"/Users/jhattabaugh/knockout-starter/src/main.js":[function(require,module,exports){
+},{}],"/Users/jhattabaugh/knockout-starter/src/app.js":[function(require,module,exports){
 (function (process){
 var ko = require('knockout');
 
-ko.components.register('panel', {
-    viewModel: require('./panelViewModel'),
-    template: "<article class=\"container\">\n  <header\n    data-bind=\"text: title\"\n    style=\"\n      background: grey;\n      padding: 1em;\n      text-align: center;\n    \">Panel</header>\n  <section>\n    <ul>\n      <li>Hi</li>\n    </ul>\n  </section>\n\n</article>\n"
-});
+module.exports = function App() {
+  this.title = "Hello Knockout";
 
-var app = {
-  title: "Hello Knockout",
-  env: process.env.NODE_ENV || 'development',
-  initialized: ko.observable(false)
+  this.env = process.env.NODE_ENV || 'development';
+
+  this.initialized = ko.observable(false);
+
+  this.panel = ko.observable('home');
+
+  this.go = function () {
+    console.dir(arguments);
+  }
+
 };
 
-ko.applyBindings(app);
+}).call(this,require('_process'))
+},{"_process":"/Users/jhattabaugh/knockout-starter/node_modules/browserify/node_modules/process/browser.js","knockout":"/Users/jhattabaugh/knockout-starter/node_modules/knockout/build/output/knockout-latest.debug.js"}],"/Users/jhattabaugh/knockout-starter/src/main.js":[function(require,module,exports){
+var ko = require('knockout');
 
+// Register Components
+ko.components.register('panel', require('./panel'));
+//ko.components.register('back-button', require('./back-button'));
+ko.components.register('back-button', {
+  template: "<button\n  data-bind=\"\n    if: visible,\n    click: function () {\n      //window.history.back();\n      console.log('back');\n    }\"\n  style=\"\n    position: absolute;\n    left: 0;\n    top: 0;\n    background: pink;\n  \">back</button>\n"
+})
+
+// Initialize App
+var App = require('./app');
+var app = new App();
+ko.applyBindings(app);
+app.initialized(true);
 console.log('Knockout is running');
 
-app.initialized(true);
-
-}).call(this,require('_process'))
-},{"./panelViewModel":"/Users/jhattabaugh/knockout-starter/src/panelViewModel.js","_process":"/Users/jhattabaugh/knockout-starter/node_modules/browserify/node_modules/process/browser.js","knockout":"/Users/jhattabaugh/knockout-starter/node_modules/knockout/build/output/knockout-latest.debug.js"}],"/Users/jhattabaugh/knockout-starter/src/panelViewModel.js":[function(require,module,exports){
+},{"./app":"/Users/jhattabaugh/knockout-starter/src/app.js","./panel":"/Users/jhattabaugh/knockout-starter/src/panel.js","knockout":"/Users/jhattabaugh/knockout-starter/node_modules/knockout/build/output/knockout-latest.debug.js"}],"/Users/jhattabaugh/knockout-starter/src/panel.js":[function(require,module,exports){
 var ko = require('knockout');
-module.exports = function (params) {
-  this.title = params.title;
+
+module.exports = {
+  viewModel: function (params) {
+    this.name = params.name;
+    this.back = params.back;
+    this.state = params.state;
+  },
+  template: "<article class=\"container\" data-bind=\"if: state() == name\">\n  <header\n    class=\"context\"\n    style=\"\n      background: grey;\n      padding: 1em;\n      text-align: center;\n    \">\n      <!-- ko if: back -->\n      <back-button></back-button>\n      <!-- /ko -->\n      <h1 data-bind=\"text: name\"></h1>\n    </header>\n  <section>\n\n  </section>\n\n</article>\n"
 }
 
 },{"knockout":"/Users/jhattabaugh/knockout-starter/node_modules/knockout/build/output/knockout-latest.debug.js"}]},{},["/Users/jhattabaugh/knockout-starter/src/main.js"]);

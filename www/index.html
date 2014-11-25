@@ -10,6 +10,9 @@
       *, *:before, *:after {
         box-sizing: inherit;
       }
+      .context {
+        position: relative;
+      }
       .container {
         position: absolute;
         top: 0;
@@ -20,11 +23,15 @@
       }
     </style>
   </head>
-  <body>
+  <body data-bind="event: {popstate: go}">
     <main
       data-bind="if: initialized"
       class="container">
-      <panel params="{title: title}"></panel>
+
+      <panel params="name: 'home', state: panel"></panel>
+
+      <panel params="name: 'list', back: 'home', state: panel"></panel>
+
       <span data-bind="text: env"></span>
     </main>
     <script src="index.js"></script>

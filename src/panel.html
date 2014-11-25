@@ -1,0 +1,18 @@
+<article class="container" data-bind="if: state() == name">
+  <header
+    class="context"
+    style="
+      background: grey;
+      padding: 1em;
+      text-align: center;
+    ">
+      <!-- ko if: back -->
+      <back-button></back-button>
+      <!-- /ko -->
+      <h1 data-bind="text: name"></h1>
+    </header>
+  <section>
+
+  </section>
+
+</article>
