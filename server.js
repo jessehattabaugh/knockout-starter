@@ -1,14 +1,24 @@
-var static = require('node-static');
+var express = require('express'),
+    app = express(),
+    bodyParser = require('body-parser'),
+    errorHandler = require('errorhandler'),
+    methodOverride = require('method-override'),
+    port = parseInt(process.env.PORT, 10) || 3000;
 
-var fileServer = new static.Server('www', { cache: 0 });
+app.get('/', function (req, res) {
+  res.redirect('/index.html');
+});
 
-var PORT = process.env.PORT || "3000";
+app.use(methodOverride());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static(__dirname + '/www'));
+app.use(errorHandler({
+  dumpExceptions: true,
+  showStack: true
+}));
 
-require('http').createServer(function (request, response) {
-  request.addListener('end', function () {
-    console.log("HTTP server started on port " + PORT);
-    fileServer.serve(request, response);
-  }).resume();
-}).listen(PORT);
-
-console.log("HTTP server started on port " + PORT);
+console.log("Simple static server listening at http://localhost:" + port);
+app.listen(port);

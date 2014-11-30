@@ -1,6 +1,6 @@
 var ko = require('knockout');
 
-module.exports = function App() {
+function App() {
   this.title = "Hello Knockout";
 
   this.env = process.env.NODE_ENV || 'development';
@@ -14,3 +14,5 @@ module.exports = function App() {
   }
 
 };
+
+module.exports = App;

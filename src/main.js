@@ -1,10 +1,11 @@
-var ko = require('knockout');
+var ko = require('knockout'),
+    html = require('./htmlString');
 
 // Register Components
 ko.components.register('panel', require('./panel'));
 //ko.components.register('back-button', require('./back-button'));
 ko.components.register('back-button', {
-  template: require('fs').readFileSync('src/back-button.html', 'utf8')
+  template: html('src/back-button.html')
 })
 
 // Initialize App
