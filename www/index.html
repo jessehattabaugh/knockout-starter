@@ -23,10 +23,8 @@
       }
     </style>
   </head>
-  <body data-bind="event: {popstate: go}">
-    <main
-      data-bind="if: initialized"
-      class="container">
+  <body class="container" data-bind="event: {popstate: go}">
+    <main class="container" data-bind="if: initialized">
 
       <panel params="name: 'home', state: panel"></panel>
 
@@ -34,6 +32,9 @@
 
       <span data-bind="text: env"></span>
     </main>
+    <div class="container" data-bind="if: !initialized">
+      Loading
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
